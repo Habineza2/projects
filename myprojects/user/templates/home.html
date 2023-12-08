@@ -6,12 +6,19 @@
     <meta charset="UTF-8">
     
     <title>Your Website</title>
-    <link rel="stylesheet" href="style1.css">
+     <link rel="stylesheet" href="{% static 'style1.css'%}">  
     </head>
     <body>
 
+
+
+
 <h1> welcome to our website </h1>
-<button type="submit">Sign up</button>
-        
+<form>
+    
+<h2><p><a href="{% url 'login' %}">Log In</a></p>
+<a href="{% url 'register' %}">Signup</a></h2>
+    
+</form>
     </body>
 </html>

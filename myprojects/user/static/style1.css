@@ -1,61 +1,61 @@
 
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: rgb(7, 8, 8);
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* header {
-    background-color: #333;
-    color: #fff;
-    padding: 1em;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* body {
+    background-color: lightblue;
+    font-family: verdana;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-content: center;
+    align-self: center;
+    animation-delay: 0s;
+    justify-content: center;
     display: flex;
+    min-height: 100vh;
+    background: rgb(156, 226, 156);
+  }
+
+form {
+
+    
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+      flex-wrap: wrap;
+      overflow: hidden;
 }
 
-nav a {
-    text-decoration: none;
-    color: #fff;
-    margin: 0 1em;
+form::before 
+{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#000,rgb(86, 161, 86),#000);
+  animation: animate 5s linear infinite;
 }
-
-.hero {
-    text-align: center;
-    padding: 2em;
-    background-color: #f0f0f0;
-}
-
-.cta-button {
-    display: inline-block;
-    padding: 1em 2em;
-    margin-top: 1em;
-    text-decoration: none;
-    color: #fff;
-    background-color: #333;
-    border-radius: 5px;
-}
-
-.features {
+*/
+form span 
+{
+  position: relative;
+  display: block;
+  width: calc(6.25vw - 2px);
+  height: calc(6.25vw - 2px);
+  background: #181818;
+  z-index: 2;
+  transition: 1.5s;
+} 
+h2{
+    
+    color: black;
+    align-self: center;
+   
     display: flex;
-    justify-content: space-around;
-    padding: 2em;
-}
 
-.feature {
-    text-align: center;
-}
 
-footer {
-    text-align: center;
-    padding: 1em;
-    background-color: #333;
-    color: #fff;
-} */
+
+
+    
+}
