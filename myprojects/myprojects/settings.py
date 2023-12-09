@@ -39,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'social_django',
+    'codes',
+    'crispy_forms',
+
 ]
 
+
+
+CRISPY_TEMPLATE_PACK= 'bootstap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -79,9 +85,11 @@ WSGI_APPLICATION = 'myprojects.wsgi.application'
 
 
 
+
+
+
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
+   
     'social_core.backends.github.GithubOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
@@ -164,4 +172,6 @@ LOGIN_REDIRECT_URL = 'home'
 
 SOCIAL_AUTH_GITHUB_KEY='53effc1066b8970bda65'
 SOCIAL_AUTH_GITHUB_SECRET='32b02f9ae8e6a2d46a056f02606595e11820f8fc'
+
+
 
