@@ -4,6 +4,10 @@ from django.urls import reverse_lazy
 def home(request):
     return render(request, 'home.html')
 
+def success(request):
+    return render(request, 'success.html')
+
+
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
@@ -98,7 +102,7 @@ class CustomLoginView(LoginView):
         return response
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('success')
     
 
 

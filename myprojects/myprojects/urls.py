@@ -24,6 +24,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
    path('login/', views.CustomLoginView.as_view(), name='login'),
    path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
+   path('success/',views.success, name="success"),
    
 
 

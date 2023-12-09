@@ -1,5 +1,21 @@
+
+{% load static %}
+<!doctype html>
+<html lang=en>
+    <head>
+    <title>homepage</title>
+    <meta charset="UTF-8">
+    
+    <title>Your Website</title>
+     <link rel="stylesheet" href="{% static 'style4.css'%}">  
+     <script type="javascript" src="{% static 'Gs.js' %}"></script>
+    </head>
+    <body>
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Sign up</button>
 </form>
+</body>
+</html>

@@ -167,7 +167,7 @@ EMAIL_HOST_PASSWORD = 'enev pwwt lios syoq'
 
 LOGIN_URL = 'login'
 #LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'success'
 
 
 SOCIAL_AUTH_GITHUB_KEY='53effc1066b8970bda65'
