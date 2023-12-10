@@ -1,5 +1,10 @@
+
+
+import random
 from django.shortcuts import render
 from django.urls import reverse_lazy
+
+from codes.models import Code
 
 def home(request):
     return render(request, 'home.html')
@@ -11,7 +16,7 @@ def success(request):
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .forms import SignupForm,LoginForm
+from user.forms import SignupForm,LoginForm
 
 def register(request):
     if request.method == 'POST':
@@ -19,7 +24,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('home')
+            return redirect('success')
     else:
         form = SignupForm()
     return render(request, 'register.html', {'form': form})
@@ -27,65 +32,21 @@ def register(request):
 
 
 
-# from django.contrib.auth.models import User
-# from django.shortcuts import render, redirect
-# from django.contrib.auth import authenticate, login
-# from django.contrib import messages
 
-# def login_view(request):
-#     if request.method == "POST":
-#         username = request.POST.get("username").lower()
-#         password = request.POST.get("password")
 
-#         try:
-#             user = User.objects.get(username=username)
-#         except:
-#             messages.error(request, "User Not Found....")
-#             return redirect("home")
-
-#         if user is not None:
-#             login(request, user)
-#             return redirect("home")
-#         else:
-#             messages.error(request, "Username or Password does not match...")
-
-#     return render(request, "login.html")
+from user.models import CustomUser
+from codes.forms import CodeForm
 
 
 
 
-# from . import forms
-# from django.views.generic.edit import FormView
-# from django.shortcuts import render, redirect
-# from django.contrib.auth import authenticate, login
 
 
 
-# class LoginView(FormView):
-#     template_name = 'login.html'
-#     form_class = forms.LoginForm
 
-#     def get(self, request, *args, **kwargs):
-#         form = self.form_class()
-#         return render(request, self.template_name, {'form': form})
 
-#     def post(self, request, *args, **kwargs):
-#         form = self.form_class(request.POST)
-#         if form.is_valid():
-#             email = form.cleaned_data['email']
-#             password = form.cleaned_data['password']
 
-#             user = authenticate(request, username=email, password=password)
 
-#             if user is not None:
-#                 login(request, user)
-#                 # Redirect to a success page or dashboard
-#                 return redirect('user:home')
-#             else:
-#                 # Invalid login, show an error message
-#                 form.add_error(None, 'Invalid login credentials. Please try again.')
-
-#         return render(request, self.login.html, {'form': form})
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 class CustomLoginView(LoginView):
@@ -96,13 +57,28 @@ class CustomLoginView(LoginView):
         response = super().form_valid(form)
 
         if not self.request.user.is_authenticated:
-            # Redirect back to the login page with an error message
             return redirect('login')
+        else:
+            verification_code = self.generate_verification_code()
+            code_object, created = Code.objects.get_or_create(user=self.request.user)
+            code_object.number = verification_code
+            code_object.save()
+            print(f"Verification code for user {self.request.user.email}: {verification_code}")
+
+          
+
 
         return response
 
     def get_success_url(self):
-        return reverse_lazy('success')
+        return reverse_lazy('verify')
+    
+
+    def generate_verification_code(self):
+        number_list = [x for x in range(10)]
+        code_items = [str(random.choice(number_list)) for _ in range(5)]
+        return "".join(code_items)
+    
     
 
 
@@ -118,4 +94,35 @@ class CustomLoginView(LoginView):
 
 
 
+def verify(request):
+    if request.method == 'POST':
+        
+        form = CodeForm(request.POST)
+        pk = request.session.get('pk')
+        
+        if pk:
+            user = CustomUser.objects.get(pk=pk)
+            code = user.code
+            print(f"Stored verification code for user {user.email}: {code.number}")
+            
+            if form.is_valid():
+                num = form.cleaned_data.get('number')
+                
+                if str(code) == num:
+                    
+                    code.save()
+                    login(request, user, backend = 'django.contrib.auth.backends.ModelBackend'
+)
+                    
+                    return redirect('success')
+                    
+                else:
+                    return redirect('login')  # Replace with your actual failure URL
+                    
+        return render(request, 'verify.html', {'form': form})
+    else:
+        form = CodeForm()
+        return render(request, 'verify.html', {'form': form})
+   
+            
 
