@@ -32,10 +32,13 @@
 from django.db import models
 from user.models import CustomUser
 import random
-
+from django.utils import timezone
 class Code(models.Model):
     number = models.CharField(max_length=5, blank=True)
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=20, default=timezone.now)  
+    created_at = models.DateTimeField(default=timezone.now)
+    
 
     def __str__(self):
         return str(self.number)
@@ -52,7 +55,7 @@ class Code(models.Model):
             code_string = "".join(str(item) for item in code_items)
             self.number = code_string
 
-            # Print the verification code to the terminal
+            
             print(f"Verification code for user {self.user.email}: {self.number}")
 
         super().save(*args, **kwargs)

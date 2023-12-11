@@ -4,10 +4,11 @@ from .models import CustomUser
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200)
+    phone_number=forms.CharField(max_length=13)
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'password1', 'password2')
+        fields = ('email', 'password1', 'password2','phone_number')
 
 class LoginForm(forms.Form):
     """user login form"""
@@ -18,6 +19,7 @@ class LoginForm(forms.Form):
 from codes.models import Code
 class CodeForm(forms.ModelForm):
     number=forms.CharField(label='Code', help_text='Enter SMS verification code')
+    
     class Meta:
         model=Code 
         fields = ('number',)

@@ -1,5 +1,28 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+<link rel="stylesheet" href="{% static 'style3.css'%}">  
+<script type="javascript" src="{% static 'Gs.js' %}"></script>
+</head>
+
 <form method="post" action="{% url 'verify' %}">
     {% csrf_token %}
     {{ form }}
     <button type="submit">Verify</button>
 </form>
+
+
+<footer>
+    <p>
+      Created  <i class="fa fa-heart"></i> by
+      <a target="_blank" >Emmy</a>
+    
+    
+  </footer>
+</body>
+</html>
+  

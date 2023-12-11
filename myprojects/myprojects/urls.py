@@ -26,7 +26,7 @@ urlpatterns = [
    path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
    path('success/',views.success, name="success"),
    path('verify/', views.verify, name="verify"),
-   
+  path('get/', views.get, name="get"),
 
 
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
