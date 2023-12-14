@@ -12,7 +12,7 @@
     <body>
 
 
-<h1><marque> Welcome to our Website </marque><h1>
+		{% comment %} <marquee behavior="scroll" direction="left"><h1> Welcome to our Website </marque><h1></marquee> {% endcomment %}
 
 
 
@@ -52,7 +52,7 @@
 			<span>or use your account</span>
 			<h2><p><button><a href="{% url 'login' %}">Log In</a></button></p>
 			<a href="#">Forgot your password?</a>
-            <p><button><a href="{% url 'password_reset' %}">Reset Password</a></button></p>
+            <p><button><a href="{% url 'reset_password' %}">Reset Password</a></button></p>
 			
 		</form>
 	</div>

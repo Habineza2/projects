@@ -159,6 +159,18 @@ def verify(request):
 
 def get(request):
     return render(request, 'last.html')
-   
-            
 
+
+   
+from django.contrib.auth.views import PasswordResetView           
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'password_reset_form.html'
+    email_template_name = 'password_reset_email.html'
+    subject_template_name = 'password_reset_subject.txt'
+    success_url = '/password_reset/done/'
+
+
+
+def welcome(request):
+    return render(request, 'welcome.html')    
