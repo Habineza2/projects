@@ -48,7 +48,7 @@ from codes.forms import CodeForm
 
 
 
-
+from django.core.mail import send_mail
 
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
@@ -66,6 +66,15 @@ class CustomLoginView(LoginView):
             code_object, created = Code.objects.get_or_create(user=self.request.user)
             code_object.number = verification_code
             code_object.save()
+
+            subject = 'Verification Code'
+            message = f"Your verification code is: {verification_code}"
+            from_email = 'habinezae73@gmail.com'  # Set your sender email address
+            to_email = self.request.user.email
+
+            send_mail(subject, message, from_email, [to_email])
+
+            print(f"Verification code for user {self.request.user.email} sent to email")
             
             self.send_sms_verification(self.request.user.phone_number, verification_code)
 
@@ -174,3 +183,8 @@ class CustomPasswordResetView(PasswordResetView):
 
 def welcome(request):
     return render(request, 'welcome.html')    
+
+
+
+
+
